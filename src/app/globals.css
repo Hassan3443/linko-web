@@ -10,6 +10,9 @@
   --muted: #F8FAFC;
   --border: #E5E7EB;
   --ring: #FF8C32;
+  --error: #EF4444;
+  --success: #10B981;
+  --warning: #F59E0B;
 }
 
 @theme inline {
@@ -22,6 +25,9 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-ring: var(--ring);
+  --color-error: var(--error);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
 
   --font-sans: var(--font-manrope);
   --font-heading: var(--font-sora);
