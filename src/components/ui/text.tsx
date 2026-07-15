@@ -46,6 +46,7 @@ export interface TextProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof textVariants> {
   asChild?: boolean;
+  balance?: boolean;
 }
 
 export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(

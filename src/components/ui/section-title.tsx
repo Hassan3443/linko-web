@@ -31,7 +31,7 @@ const sectionTitleVariants = cva("flex flex-col w-full", {
 });
 
 export interface SectionTitleProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title">,
     VariantProps<typeof sectionTitleVariants> {
   eyebrow?: React.ReactNode;
   title: React.ReactNode;
