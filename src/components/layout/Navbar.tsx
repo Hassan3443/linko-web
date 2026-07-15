@@ -51,7 +51,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm border-b border-border py-2"
+          ? "bg-background/70 backdrop-blur-xl shadow-sm border-b border-border/50 py-3"
           : "bg-transparent border-transparent py-4"
       )}
     >
@@ -63,9 +63,9 @@ export function Navbar() {
             className="flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md transition-opacity hover:opacity-80"
             aria-label="LINKO Home"
           >
-            <Heading as="span" size="heading-4" className="text-primary font-extrabold tracking-tight">
+            <span className="text-primary font-extrabold text-xl tracking-tight">
               LINKO.
-            </Heading>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

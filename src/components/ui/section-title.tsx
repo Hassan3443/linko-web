@@ -12,9 +12,9 @@ const sectionTitleVariants = cva("flex flex-col w-full", {
       right: "text-right items-end ml-auto",
     },
     spacing: {
-      sm: "gap-2",
-      md: "gap-4",
-      lg: "gap-6",
+      sm: "gap-1.5",
+      md: "gap-3",
+      lg: "gap-5",
     },
     maxWidth: {
       sm: "max-w-xl",
@@ -51,7 +51,7 @@ export const SectionTitle = React.forwardRef<HTMLDivElement, SectionTitleProps>(
             {eyebrow}
           </Text>
         )}
-        <Heading size="heading-2" align={align}>
+        <Heading size="heading-3" align={align}>
           {title}
         </Heading>
         {description && (

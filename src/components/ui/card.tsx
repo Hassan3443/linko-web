@@ -9,17 +9,17 @@ const cardVariants = cva(
     variants: {
       variant: {
         default: "bg-muted text-foreground border border-transparent",
-        outline: "bg-background text-foreground border border-border",
-        elevated: "bg-background text-foreground border border-border shadow-linko",
+        outline: "bg-background text-foreground border border-border/60 shadow-sm shadow-primary/5",
+        elevated: "bg-background text-foreground border border-border/40 shadow-xl shadow-primary/5",
       },
       padding: {
         none: "p-0",
-        sm: "p-4 md:p-6",
-        md: "p-6 md:p-8",
-        lg: "p-8 md:p-10",
+        sm: "p-4",
+        md: "p-5 md:p-6",
+        lg: "p-6 md:p-8",
       },
       interactive: {
-        true: "hover:-translate-y-1 hover:shadow-linko-hover hover:border-primary/50 cursor-pointer",
+        true: "hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 cursor-pointer",
         false: "",
       },
     },
