@@ -65,29 +65,42 @@ export function Hero() {
           </motion.div>
 
           {/* Description */}
-          <motion.div variants={fadeUpVariant as Variants} className="w-full mb-10">
+          <motion.div variants={fadeUpVariant as Variants} className="w-full mb-8">
             <Text size="xl" variant="muted" align="center" balance className="max-w-2xl mx-auto text-foreground/70">
               Project-based coding and technology education designed to turn today's students into tomorrow's innovators. Build real apps, not toy examples.
             </Text>
           </motion.div>
 
-          {/* Bold Conversion Call to Action */}
+          {/* CTA Group */}
           <motion.div variants={fadeUpVariant as Variants} className="w-full">
-            <div className="flex flex-col items-center justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none">
-              <Button size="lg" variant="primary" className="w-full sm:w-auto min-w-[220px] group shadow-xl shadow-primary/20">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
+              <Button 
+                size="lg" 
+                variant="primary" 
+                className="w-full sm:w-auto min-w-[260px] h-16 text-lg px-10 group shadow-2xl shadow-primary/25 hover:shadow-3xl hover:shadow-primary/30 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
+                rightIcon={<ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" />}
+              >
                 Explore Courses
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <a href="#methodology" className="text-sm font-medium text-foreground/60 hover:text-primary transition-colors underline-offset-4 hover:underline">
+              <a 
+                href="#methodology" 
+                className="inline-flex items-center gap-1.5 h-16 px-6 text-sm font-semibold text-foreground/60 hover:text-primary transition-all duration-200 underline-offset-4 decoration-transparent hover:decoration-primary hover:underline"
+              >
                 Our Methodology
+                <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
               </a>
             </div>
-            <div className="mt-6 flex items-center justify-center gap-6 text-sm text-foreground/50 font-medium">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-success/80" /> 100% Project-Based
+
+            {/* Trust Indicators */}
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground/50 font-medium">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-success/80" /> Project-Based
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-success/80" /> Expert Mentors
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-success/80" /> Expert Mentors
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-success/80" /> Beginner Friendly
               </div>
             </div>
           </motion.div>

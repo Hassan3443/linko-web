@@ -43,7 +43,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <Section spacing="default" className="bg-muted/20">
+    <Section spacing="default" className="bg-background">
       <Container>
         <motion.div
           variants={staggerContainerVariant as Variants}
@@ -58,8 +58,8 @@ export function Testimonials() {
               eyebrow="Student & Parent Success"
               title="Don't just take our word for it"
               description="Hear from the families and students who have transformed their coding journey and built real-world projects through our curriculum."
-              align="center"
-              maxWidth="md"
+              align="left"
+              maxWidth="lg"
             />
           </motion.div>
 

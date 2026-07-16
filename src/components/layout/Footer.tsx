@@ -37,13 +37,13 @@ export function Footer() {
             
             {/* Column 1: Brand */}
             <div className="lg:col-span-2 flex flex-col items-start">
-              <Link href="/" className="mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">
+              <Link href="/" className="mb-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm py-1">
                 <Image
-                  src="/logos/full-logo.png"
+                  src="/logos/full-logo.svg"
                   alt="LINKO Logo"
-                  width={140}
-                  height={40}
-                  className="h-8 w-auto dark:invert"
+                  width={200}
+                  height={64}
+                  className="h-14 sm:h-16 w-auto dark:invert object-contain"
                   priority
                 />
               </Link>

@@ -40,7 +40,7 @@ const stats = [
 
 export function WhyLinko() {
   return (
-    <Section spacing="none" className="bg-background py-24 sm:py-32 border-t border-border/50">
+    <Section spacing="none" className="bg-background py-24 sm:py-32">
       <Container>
         <motion.div
           variants={staggerContainerVariant as Variants}
@@ -65,7 +65,7 @@ export function WhyLinko() {
             
             {/* Top Row: Full Width Stats Banner */}
             <motion.div variants={fadeUpVariant as Variants}>
-              <Card variant="elevated" padding="none" interactive className="w-full flex flex-col lg:flex-row bg-background/60 backdrop-blur-xl border-border/40 overflow-hidden relative group">
+              <Card variant="elevated" padding="none" interactive className="w-full flex flex-col lg:flex-row bg-primary/10 backdrop-blur-xl border-border/40 overflow-hidden relative group">
                 {/* Decorative background glow */}
                 <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 transition-opacity group-hover:opacity-100 opacity-50" aria-hidden="true" />
                 <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2 transition-opacity group-hover:opacity-100 opacity-50" aria-hidden="true" />

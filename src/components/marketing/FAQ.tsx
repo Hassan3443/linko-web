@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Plus } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
@@ -50,7 +50,9 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       interactive={false} 
       className={cn(
         "overflow-hidden transition-all duration-300",
-        isOpen ? "bg-background/95 border-primary/30 shadow-md shadow-primary/5" : "bg-background/50 border-border/50 hover:bg-background/90 hover:border-border/80"
+        isOpen 
+          ? "bg-muted border-2 border-primary/30 border-l-[3px] border-l-primary shadow-xl shadow-primary/15 -translate-y-0.5" 
+          : "bg-muted border border-border/50 shadow-md hover:border-border hover:shadow-lg"
       )}
     >
       <button 
@@ -63,11 +65,11 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         </Text>
         <div 
           className={cn(
-            "shrink-0 flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 ease-in-out",
-            isOpen ? "bg-primary text-primary-foreground border-primary rotate-45" : "bg-muted/50 border-border/50 text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30"
+            "shrink-0 flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 ease-in-out",
+            isOpen ? "bg-primary text-primary-foreground border-primary rotate-180 ring-4 ring-primary/10" : "bg-muted-strong border-border text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30"
           )} 
         >
-          <Plus className="w-5 h-5" aria-hidden="true" />
+          <ChevronDown className="w-6 h-6" aria-hidden="true" />
         </div>
       </button>
       <AnimatePresence initial={false}>
@@ -79,7 +81,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0">
-              <div className="pt-6 border-t border-border/40">
+              <div className="pt-8 border-t border-border/40">
                 <Text size="base" className="leading-relaxed text-foreground/70" balance>
                   {answer}
                 </Text>
@@ -94,7 +96,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export function FAQ() {
   return (
-    <Section spacing="none" className="bg-muted/20 border-y border-border/40 py-24 sm:py-32 relative">
+    <Section spacing="none" className="bg-background border-y-2 border-border py-32 sm:py-40 relative">
       <Container size="narrow">
         <motion.div
           variants={staggerContainerVariant as Variants}

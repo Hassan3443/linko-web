@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -56,16 +57,21 @@ export function Navbar() {
       )}
     >
       <Container>
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <Link 
             href="/" 
-            className="flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md transition-opacity hover:opacity-80"
+            className="flex items-center outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md transition-opacity hover:opacity-80 py-2 pl-1 mr-4"
             aria-label="LINKO Home"
           >
-            <span className="text-primary font-extrabold text-xl tracking-tight">
-              LINKO.
-            </span>
+            <Image
+              src="/logos/full-logo.svg"
+              alt="LINKO Logo"
+              width={180}
+              height={56}
+              className="h-12 md:h-14 w-auto dark:invert object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

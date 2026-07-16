@@ -37,7 +37,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <Section spacing="none" className="bg-background py-24 sm:py-32 border-t border-border/40 overflow-hidden relative">
+    <Section spacing="none" className="bg-muted-strong py-24 sm:py-32 overflow-hidden relative">
       {/* Premium glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" aria-hidden="true" />
       

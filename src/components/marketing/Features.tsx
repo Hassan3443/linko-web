@@ -38,7 +38,7 @@ const features = [
 
 export function Features() {
   return (
-    <Section spacing="default" className="bg-muted/20">
+    <Section spacing="default" className="bg-muted-strong">
       <Container>
         <motion.div
           variants={staggerContainerVariant as Variants}

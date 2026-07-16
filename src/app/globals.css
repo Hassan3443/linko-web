@@ -8,6 +8,7 @@
   --accent: #FF8C32;
   --accent-foreground: #FFFFFF;
   --muted: #F8FAFC;
+  --muted-strong: #F1F5F9;
   --border: #E5E7EB;
   --ring: #FF8C32;
   --error: #EF4444;
@@ -23,6 +24,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
   --color-border: var(--border);
   --color-ring: var(--ring);
   --color-error: var(--error);

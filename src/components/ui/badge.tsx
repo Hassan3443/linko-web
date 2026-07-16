@@ -8,13 +8,13 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:
+        default: 
           "border-transparent bg-muted text-primary",
-        outline:
+        outline: 
           "border-border bg-transparent text-foreground",
-        accent:
+        accent: 
           "border-transparent bg-accent/10 text-accent",
-        success:
+        success: 
           "border-transparent bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-500",
       },
       size: {
@@ -31,7 +31,7 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
-  VariantProps<typeof badgeVariants> {
+    VariantProps<typeof badgeVariants> {
   leftIcon?: React.ReactNode;
   asChild?: boolean;
 }
@@ -56,8 +56,8 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         {...props}
       >
         {leftIcon && (
-          <span
-            className="shrink-0 inline-flex items-center justify-center opacity-90"
+          <span 
+            className="shrink-0 inline-flex items-center justify-center opacity-90" 
             aria-hidden="true"
           >
             {leftIcon}

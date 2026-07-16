@@ -9,7 +9,6 @@ import { Terminal, Globe, Code2, Rocket, CheckCircle2, ChevronDown } from "lucid
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { SectionTitle } from "@/components/ui/section-title";
 import { Card } from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
@@ -17,7 +16,7 @@ import { fadeUpVariant, staggerContainerVariant } from "@/lib/motion/variants";
 
 const stages = [
   {
-    icon: <Terminal className="w-5 h-5" aria-hidden="true" />,
+    icon: <Terminal className="w-6 h-6" aria-hidden="true" />,
     number: "01",
     title: "Python Fundamentals",
     description: "Master the building blocks of programming through hands-on scripting.",
@@ -28,7 +27,7 @@ const stages = [
     ]
   },
   {
-    icon: <Globe className="w-5 h-5" aria-hidden="true" />,
+    icon: <Globe className="w-6 h-6" aria-hidden="true" />,
     number: "02",
     title: "Web Development",
     description: "Learn how the internet works and build responsive web pages.",
@@ -39,7 +38,7 @@ const stages = [
     ]
   },
   {
-    icon: <Code2 className="w-5 h-5" aria-hidden="true" />,
+    icon: <Code2 className="w-6 h-6" aria-hidden="true" />,
     number: "03",
     title: "React & Modern Frontend",
     description: "Build interactive single-page applications like modern startups.",
@@ -50,7 +49,7 @@ const stages = [
     ]
   },
   {
-    icon: <Rocket className="w-5 h-5" aria-hidden="true" />,
+    icon: <Rocket className="w-6 h-6" aria-hidden="true" />,
     number: "04",
     title: "Capstone Projects",
     description: "Synthesize your knowledge by building and deploying full applications.",
@@ -63,10 +62,10 @@ const stages = [
 ];
 
 export function Curriculum() {
-  const [activeStage, setActiveStage] = useState(0);
+  const [activeStage, setActiveStage] = useState<number | null>(0);
 
   return (
-    <Section spacing="default" className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-muted/50 via-background to-background overflow-hidden relative">
+    <Section spacing="default" className="bg-muted-strong overflow-hidden relative">
       <Container size="default">
         <motion.div
           variants={staggerContainerVariant as Variants}
@@ -97,35 +96,35 @@ export function Curriculum() {
                     className={cn(
                       "overflow-hidden transition-all duration-300 w-full text-left",
                       isActive 
-                        ? "bg-background/95 border-primary/40 shadow-lg shadow-primary/5" 
-                        : "bg-background/50 border-border/40 hover:bg-background hover:border-border/80 cursor-pointer"
+                        ? "bg-background border-2 border-primary/60 shadow-xl shadow-primary/10" 
+                        : "bg-muted/60 border-border/30 opacity-80 hover:opacity-100 hover:bg-muted hover:border-border/60 cursor-pointer"
                     )}
                     role="button"
                     tabIndex={0}
                     aria-expanded={isActive}
-                    onClick={() => setActiveStage(index)}
+                    onClick={() => setActiveStage(prev => prev === index ? null : index)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        setActiveStage(index);
+                        setActiveStage(prev => prev === index ? null : index);
                       }
                     }}
                   >
                     {/* Accordion Header */}
                     <div className={cn("p-5 sm:p-6 lg:p-8 flex items-center justify-between transition-colors", isActive && "pb-6 sm:pb-8")}>
-                      <div className="flex items-center gap-4 sm:gap-6">
-                        <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center border transition-all duration-300 shrink-0", 
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className={cn("w-14 h-14 rounded-xl flex items-center justify-center border transition-all duration-300 shrink-0", 
                           isActive ? "bg-primary/10 border-primary/20 text-primary" : "bg-muted border-border/50 text-foreground/50 group-hover:text-primary"
                         )}>
                           {stage.icon}
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                          <Text size="sm" weight="bold" variant="accent" className={cn("px-2.5 py-1 rounded-md uppercase tracking-wider text-xs w-fit transition-colors",
-                            isActive ? "bg-accent/10 text-accent" : "bg-muted text-foreground/50"
+                          <Text size="sm" weight="bold" variant="accent" className={cn("px-2.5 py-1 rounded-md uppercase tracking-wider text-xs w-fit transition-colors border font-bold",
+                            isActive ? "bg-accent/20 text-accent border-accent/30" : "bg-muted-strong text-foreground/50 border-border/40"
                           )}>
                             Stage {stage.number}
                           </Text>
-                          <Heading as={isActive ? "h3" : "h4"} size={isActive ? "heading-3" : "heading-4"} className={cn("tracking-tight m-0 transition-colors duration-300", 
+                          <Heading as={isActive ? "h3" : "h4"} size={isActive ? "heading-2" : "heading-3"} className={cn("tracking-tight m-0 transition-colors duration-300", 
                             !isActive && "text-foreground/80 group-hover:text-foreground"
                           )}>
                             {stage.title}
@@ -134,8 +133,8 @@ export function Curriculum() {
                       </div>
                       
                       {/* Chevron Indicator */}
-                      <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300", isActive && "rotate-180")}>
-                        <ChevronDown className={cn("w-5 h-5", isActive ? "text-primary" : "text-foreground/40")} aria-hidden="true" />
+                      <div className={cn("w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 border", isActive ? "rotate-180 bg-primary/10 border-primary/20" : "bg-muted border-border/40")}>
+                        <ChevronDown className={cn("w-6 h-6", isActive ? "text-primary" : "text-foreground/50")} aria-hidden="true" />
                       </div>
                     </div>
                     
@@ -150,17 +149,17 @@ export function Curriculum() {
                         >
                           <div className="px-5 sm:px-6 lg:px-8 pb-6 sm:pb-8 lg:pb-10 pt-0">
                             <div className="pt-6 sm:pt-8 border-t border-border/40">
-                              <Text size="xl" variant="muted" balance className="mb-8 font-medium text-foreground/80">
+                              <Text size="xl" variant="muted" balance className="mb-10 font-medium text-foreground/80 md:text-2xl md:leading-normal">
                                 {stage.description}
                               </Text>
                               
-                              <ul className="flex flex-col gap-5">
+                              <ul className="flex flex-col gap-6">
                                 {stage.bullets.map((bullet, i) => (
-                                  <li key={i} className="flex items-start gap-4">
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 border border-primary/20 shadow-sm">
-                                      <CheckCircle2 className="w-5 h-5 text-primary" aria-hidden="true" />
+                                  <li key={i} className="flex items-start gap-5">
+                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 md:mt-0 border border-primary/20 shadow-sm">
+                                      <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-primary" aria-hidden="true" />
                                     </div>
-                                    <Text size="base" className="leading-relaxed text-foreground/90 mt-1">
+                                    <Text size="lg" className="leading-relaxed md:leading-loose text-foreground/90 mt-1 md:mt-1.5">
                                       {bullet}
                                     </Text>
                                   </li>
