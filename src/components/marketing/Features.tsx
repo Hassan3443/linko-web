@@ -13,26 +13,56 @@ import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
 import { fadeUpVariant, staggerContainerVariant } from "@/lib/motion/variants";
 
+const cardScaleFadeVariant = {
+  hidden: { opacity: 0, y: 20, scale: 0.96 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
+const borderColors = [
+  "border-l-primary/50",
+  "border-l-accent/50",
+  "border-l-accent-secondary/50",
+  "border-l-accent-tertiary/50",
+];
+
+const iconBgColors = [
+  "bg-primary/10",
+  "bg-accent/10",
+  "bg-accent-secondary/10",
+  "bg-accent-tertiary/10",
+];
+
+const hoverShadowColors = [
+  "hover:shadow-primary/20",
+  "hover:shadow-accent/20",
+  "hover:shadow-accent-secondary/20",
+  "hover:shadow-accent-tertiary/20",
+];
+
 const features = [
   {
     icon: <Code className="w-5 h-5 text-primary" aria-hidden="true" />,
     title: "Project-Based Learning",
     description: "Build real-world applications instead of copying theoretical examples. Every module produces a portfolio piece.",
+    colorIndex: 0,
   },
   {
     icon: <Lightbulb className="w-5 h-5 text-accent" aria-hidden="true" />,
     title: "Creative Problem Solving",
     description: "Develop the critical thinking skills needed to tackle complex challenges and architecture design.",
+    colorIndex: 1,
   },
   {
-    icon: <Users className="w-5 h-5 text-primary" aria-hidden="true" />,
+    icon: <Users className="w-5 h-5 text-accent-secondary" aria-hidden="true" />,
     title: "Collaborative Environment",
     description: "Work in teams to simulate modern agile software development practices and peer reviews.",
+    colorIndex: 2,
   },
   {
-    icon: <Rocket className="w-5 h-5 text-accent" aria-hidden="true" />,
+    icon: <Rocket className="w-5 h-5 text-accent-tertiary" aria-hidden="true" />,
     title: "Career-Ready Skills",
     description: "Learn modern frameworks and tools actively used in the tech industry today, from Git to deployment.",
+    colorIndex: 3,
   },
 ];
 
@@ -60,15 +90,17 @@ export function Features() {
 
           {/* Premium 2x2 Bento Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto w-full">
-            {features.map((feature, index) => (
-              <motion.div key={feature.title} variants={fadeUpVariant as Variants}>
+            {features.map((feature) => (
+              <motion.div key={feature.title} variants={cardScaleFadeVariant as Variants}>
                 <Card 
                   variant="elevated" 
                   interactive 
                   className={cn(
                     "border-border/50 bg-background/60 backdrop-blur-md p-6 sm:px-8 sm:pt-8 sm:pb-6 group overflow-hidden relative",
-                    // Subtle visual differentiator: alternating border
-                    index % 2 === 0 ? "border-l-[3px] border-l-primary/50" : "border-l-[3px] border-l-accent/50"
+                    "hover:-translate-y-1 hover:shadow-xl transition-all duration-300",
+                    "border-l-[3px]",
+                    borderColors[feature.colorIndex],
+                    hoverShadowColors[feature.colorIndex]
                   )}
                 >
                   
@@ -76,7 +108,10 @@ export function Features() {
                   <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-500 pointer-events-none" aria-hidden="true" />
 
                   <div className="relative z-10 flex flex-col">
-                    <div className="w-10 h-10 rounded-xl bg-muted/80 flex items-center justify-center mb-5 border border-border/50 shadow-sm group-hover:scale-110 group-hover:bg-background group-hover:border-primary/20 transition-all duration-300">
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center mb-5 border border-border/50 shadow-sm group-hover:scale-110 group-hover:border-primary/20 transition-all duration-300",
+                      iconBgColors[feature.colorIndex]
+                    )}>
                       {feature.icon}
                     </div>
                     

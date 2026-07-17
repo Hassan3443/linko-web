@@ -14,6 +14,11 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { fadeUpVariant, staggerContainerVariant } from "@/lib/motion/variants";
 
+const cardScaleFadeVariant = {
+  hidden: { opacity: 0, y: 20, scale: 0.96 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
 const testimonials = [
   {
     name: "Alex Rivera",
@@ -21,7 +26,8 @@ const testimonials = [
     testimonial: "Linko completely changed how I look at coding. Instead of just memorizing syntax, I actually built a full startup landing page from scratch. The mentors are incredibly supportive and the community is amazing.",
     rating: 5,
     initials: "AR",
-    avatarColor: "bg-primary/10 border-primary/20 text-primary"
+    avatarColor: "bg-primary/10 border-primary/20 text-primary",
+    topBorderColor: "border-t-primary/60"
   },
   {
     name: "Anonymous Parent",
@@ -29,7 +35,8 @@ const testimonials = [
     testimonial: "I love how safe and supportive the environment is. The mentors provide excellent guidance, and the progress visibility lets me see exactly what my child is building each week. It's truly engaging and high quality.",
     rating: 5,
     initials: "P",
-    avatarColor: "bg-accent/10 border-accent/20 text-accent"
+    avatarColor: "bg-accent-secondary/10 border-accent-secondary/20 text-accent-secondary",
+    topBorderColor: "border-t-accent-secondary/60"
   },
   {
     name: "Marcus Johnson",
@@ -37,7 +44,8 @@ const testimonials = [
     testimonial: "The curriculum is so well structured. Every concept builds on the last one perfectly. I went from not knowing what HTML was to deploying my first website in just a few weeks. Highly recommend this to anyone.",
     rating: 5,
     initials: "MJ",
-    avatarColor: "bg-muted border-border/50 text-foreground/70"
+    avatarColor: "bg-accent-tertiary/10 border-accent-tertiary/20 text-accent-tertiary",
+    topBorderColor: "border-t-accent-tertiary/60"
   }
 ];
 
@@ -66,12 +74,12 @@ export function Testimonials() {
           {/* Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((testimonial, i) => (
-              <motion.div key={i} variants={fadeUpVariant as Variants} className="h-full">
-                <Card variant="elevated" padding="md" interactive className="h-full relative overflow-hidden flex flex-col border-border/50 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 bg-background/80 backdrop-blur-sm group">
+              <motion.div key={i} variants={cardScaleFadeVariant as Variants} className="h-full">
+                <Card variant="elevated" padding="md" interactive className={cn("h-full relative overflow-hidden flex flex-col border-border/50 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 bg-background/80 backdrop-blur-sm group border-t-[3px]", testimonial.topBorderColor)}>
                   
                   {/* Author Header Row */}
                   <div className="flex flex-row items-center gap-4 mb-6 relative z-10">
-                    <div className={cn("w-12 h-12 rounded-full flex items-center justify-center shrink-0 border shadow-sm group-hover:scale-105 transition-transform", testimonial.avatarColor)}>
+                    <div className={cn("w-12 h-12 rounded-full flex items-center justify-center shrink-0 border shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300", testimonial.avatarColor)}>
                       <Text size="sm" weight="bold" className="tracking-wider">
                         {testimonial.initials}
                       </Text>

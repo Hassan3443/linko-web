@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { sora, manrope } from "./fonts";
 import "./globals.css";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
+import { Navbar } from "@/components/layout/Navbar";
 
 // TODO: Replace https://example.com with the real production domain before launch
 const BASE_URL = "https://example.com";
@@ -70,6 +73,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${manrope.variable}`}>
       <body className="font-sans antialiased">
+        <AnimatedBackground />
+        <ScrollProgress />
+        <Navbar />
         {children}
       </body>
     </html>

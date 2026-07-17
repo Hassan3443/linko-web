@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, animate, useInView } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Target, TrendingUp, ShieldCheck, Users, Briefcase, Star, Lightbulb } from "lucide-react";
 
@@ -14,29 +14,97 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { fadeUpVariant, staggerContainerVariant } from "@/lib/motion/variants";
 
+const cardScaleFadeVariant = {
+  hidden: { opacity: 0, y: 20, scale: 0.96 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
+const borderColors = [
+  "border-l-primary/50",
+  "border-l-accent/50",
+  "border-l-accent-secondary/50",
+];
+
+const iconBgColors = [
+  "bg-primary/10",
+  "bg-accent/10",
+  "bg-accent-secondary/10",
+];
+
+const hoverShadowColors = [
+  "hover:shadow-primary/20",
+  "hover:shadow-accent/20",
+  "hover:shadow-accent-secondary/20",
+];
+
 const benefits = [
   {
     icon: <Target className="w-5 h-5 text-primary" aria-hidden="true" />,
     title: "Goal-Oriented Curriculum",
     description: "Every module is designed to produce tangible, portfolio-ready results.",
+    colorIndex: 0,
   },
   {
     icon: <TrendingUp className="w-5 h-5 text-accent" aria-hidden="true" />,
     title: "Industry-Aligned Skills",
     description: "We teach the exact frameworks and workflows used by top tech companies.",
+    colorIndex: 1,
   },
   {
-    icon: <ShieldCheck className="w-5 h-5 text-primary" aria-hidden="true" />,
+    icon: <ShieldCheck className="w-5 h-5 text-accent-secondary" aria-hidden="true" />,
     title: "Safe & Supportive",
     description: "A moderated, inclusive environment where every student can thrive and build confidence.",
+    colorIndex: 2,
   },
 ];
 
 const stats = [
-  { value: "500+", label: "Students", icon: <Users className="w-5 h-5 text-primary" aria-hidden="true" /> },
-  { value: "20+", label: "Projects", icon: <Briefcase className="w-5 h-5 text-accent" aria-hidden="true" /> },
-  { value: "95%", label: "Satisfaction", icon: <Star className="w-5 h-5 text-primary" aria-hidden="true" /> },
+  { value: 500, suffix: "+", label: "Students", icon: <Users className="w-5 h-5 text-primary" aria-hidden="true" /> },
+  { value: 20, suffix: "+", label: "Projects", icon: <Briefcase className="w-5 h-5 text-accent" aria-hidden="true" /> },
+  { value: 95, suffix: "%", label: "Satisfaction", icon: <Star className="w-5 h-5 text-primary" aria-hidden="true" /> },
 ];
+
+function AnimatedStat({ value, suffix, label, icon }: { value: number; suffix: string; label: string; icon: React.ReactNode }) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [displayValue, setDisplayValue] = React.useState(0);
+
+  React.useEffect(() => {
+    if (inView) {
+      const controls = animate(0, value, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate: (val) => setDisplayValue(Math.floor(val))
+      });
+      return controls.stop;
+    }
+  }, [inView, value]);
+
+  return (
+    <div 
+      className={cn(
+        "flex flex-col justify-center items-center text-center gap-2 p-6 sm:p-8 transition-colors hover:bg-muted/40",
+        "border-border/50",
+        "border-b sm:border-b-0 last:border-b-0", // Mobile: horizontal borders
+        "sm:border-r sm:last:border-r-0" // Desktop: vertical borders
+      )}
+    >
+      <div className="mb-1 bg-background p-2 rounded-lg shadow-sm border border-border/30">
+        {icon}
+      </div>
+      <Heading 
+        as="p" 
+        size="heading-3" 
+        className="tracking-tighter whitespace-nowrap"
+      >
+        <span ref={ref}>{displayValue}</span>{suffix}
+      </Heading>
+      <Text size="sm" weight="semibold" variant="muted" className="uppercase tracking-wider">
+        {label}
+      </Text>
+    </div>
+  );
+}
 
 export function WhyLinko() {
   return (
@@ -64,11 +132,21 @@ export function WhyLinko() {
           <div className="flex flex-col gap-6 lg:gap-8">
             
             {/* Top Row: Full Width Stats Banner */}
-            <motion.div variants={fadeUpVariant as Variants}>
-              <Card variant="elevated" padding="none" interactive className="w-full flex flex-col lg:flex-row bg-primary/10 backdrop-blur-xl border-border/40 overflow-hidden relative group">
+            <motion.div variants={cardScaleFadeVariant as Variants}>
+              <Card variant="elevated" padding="none" interactive className="w-full flex flex-col lg:flex-row bg-gradient-to-br from-primary/10 to-accent-secondary/5 backdrop-blur-xl border-border/40 overflow-hidden relative group">
                 {/* Decorative background glow */}
-                <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 transition-opacity group-hover:opacity-100 opacity-50" aria-hidden="true" />
-                <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2 transition-opacity group-hover:opacity-100 opacity-50" aria-hidden="true" />
+                <motion.div 
+                  animate={{ scale: [1, 1.1, 1], x: ["-50%", "-40%", "-50%"], y: "-50%" }}
+                  transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+                  className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-50" 
+                  aria-hidden="true" 
+                />
+                <motion.div 
+                  animate={{ scale: [1, 1.1, 1], x: ["50%", "40%", "50%"], y: "-50%" }}
+                  transition={{ repeat: Infinity, duration: 10, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-50" 
+                  aria-hidden="true" 
+                />
                 
                 <div className="relative z-10 p-8 sm:p-10 lg:pr-16 lg:w-1/3 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-border/50">
                   <Heading as="h4" size="heading-3" className="mb-3">
@@ -81,29 +159,7 @@ export function WhyLinko() {
 
                 <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 w-full lg:w-2/3 bg-muted/5">
                   {stats.map((stat) => (
-                    <div 
-                      key={stat.label} 
-                      className={cn(
-                        "flex flex-col justify-center items-center text-center gap-2 p-6 sm:p-8 transition-colors hover:bg-muted/40",
-                        "border-border/50",
-                        "border-b sm:border-b-0 last:border-b-0", // Mobile: horizontal borders
-                        "sm:border-r sm:last:border-r-0" // Desktop: vertical borders
-                      )}
-                    >
-                      <div className="mb-1 bg-background p-2 rounded-lg shadow-sm border border-border/30">
-                        {stat.icon}
-                      </div>
-                      <Heading 
-                        as="p" 
-                        size="heading-3" 
-                        className="tracking-tighter whitespace-nowrap"
-                      >
-                        {stat.value}
-                      </Heading>
-                      <Text size="sm" weight="semibold" variant="muted" className="uppercase tracking-wider">
-                        {stat.label}
-                      </Text>
-                    </div>
+                    <AnimatedStat key={stat.label} {...stat} />
                   ))}
                 </div>
               </Card>
@@ -111,19 +167,25 @@ export function WhyLinko() {
 
             {/* Bottom Row: 3-Column Benefits Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-              {benefits.map((benefit, index) => (
-                <motion.div key={benefit.title} variants={fadeUpVariant as Variants}>
+              {benefits.map((benefit) => (
+                <motion.div key={benefit.title} variants={cardScaleFadeVariant as Variants}>
                   <Card 
                     variant="outline" 
                     interactive 
                     className={cn(
-                      "border-border/60 bg-background/80 hover:border-primary/30 hover:bg-background transition-all group relative overflow-hidden flex flex-col p-6 sm:px-8 sm:pt-8 sm:pb-6",
-                      index % 2 === 0 ? "border-l-[3px] border-l-primary/50" : "border-l-[3px] border-l-accent/50"
+                      "border-border/60 bg-background/80 hover:bg-background group relative overflow-hidden flex flex-col p-6 sm:px-8 sm:pt-8 sm:pb-6",
+                      "hover:-translate-y-1 hover:shadow-xl transition-all duration-300",
+                      "border-l-[3px]",
+                      borderColors[benefit.colorIndex],
+                      hoverShadowColors[benefit.colorIndex]
                     )}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     <div className="relative z-10 flex flex-col">
-                      <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center border border-border/50 mb-5 group-hover:bg-background group-hover:border-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1">
+                      <div className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center border border-border/50 mb-5 group-hover:bg-background group-hover:border-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1",
+                        iconBgColors[benefit.colorIndex]
+                      )}>
                         {benefit.icon}
                       </div>
                       <Text weight="semibold" size="lg" className="text-foreground mb-3">

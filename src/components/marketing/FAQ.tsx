@@ -51,8 +51,8 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       className={cn(
         "overflow-hidden transition-all duration-300",
         isOpen 
-          ? "bg-muted border-2 border-primary/30 border-l-[3px] border-l-primary shadow-xl shadow-primary/15 -translate-y-0.5" 
-          : "bg-muted border border-border/50 shadow-md hover:border-border hover:shadow-lg"
+          ? "bg-muted border-2 border-primary/30 border-l-[3px] shadow-xl shadow-primary/15 -translate-y-0.5 animate-border-pulse" 
+          : "bg-muted border border-border/50 border-l-[1px] shadow-md hover:border-border hover:shadow-lg"
       )}
     >
       <button 
@@ -63,13 +63,22 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         <Text weight="bold" size="lg" className={cn("m-0 pr-8 tracking-tight text-left transition-colors", isOpen ? "text-primary" : "text-foreground")}>
           {question}
         </Text>
-        <div 
-          className={cn(
-            "shrink-0 flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 ease-in-out",
-            isOpen ? "bg-primary text-primary-foreground border-primary rotate-180 ring-4 ring-primary/10" : "bg-muted-strong border-border text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30"
-          )} 
-        >
-          <ChevronDown className="w-6 h-6" aria-hidden="true" />
+        <div className="relative shrink-0 flex items-center justify-center w-12 h-12">
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-primary/20 to-accent-secondary/20" 
+            />
+          )}
+          <div 
+            className={cn(
+              "relative z-10 flex items-center justify-center w-full h-full rounded-full border transition-all duration-300 ease-in-out",
+              isOpen ? "bg-primary text-primary-foreground border-primary rotate-180" : "bg-muted-strong border-border text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30"
+            )} 
+          >
+            <ChevronDown className="w-6 h-6" aria-hidden="true" />
+          </div>
         </div>
       </button>
       <AnimatePresence initial={false}>
@@ -97,6 +106,17 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export function FAQ() {
   return (
     <Section spacing="none" className="bg-background border-y-2 border-border py-32 sm:py-40 relative">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-accent-secondary to-accent-tertiary" aria-hidden="true" />
+      <style>{`
+        @keyframes border-pulse {
+          0% { border-left-color: var(--color-primary); }
+          50% { border-left-color: var(--color-accent-secondary); }
+          100% { border-left-color: var(--color-primary); }
+        }
+        .animate-border-pulse {
+          animation: border-pulse 4s infinite ease-in-out;
+        }
+      `}</style>
       <Container size="narrow">
         <motion.div
           variants={staggerContainerVariant as Variants}

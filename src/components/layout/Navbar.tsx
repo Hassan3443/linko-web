@@ -1,21 +1,23 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { navigationConfig } from "@/config/navigation";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/heading";
+import { AuthModal } from "@/components/auth/AuthModal";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const pathname = usePathname();
 
   // Handle scroll effect for glass navbar
@@ -52,27 +54,13 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "bg-background/70 backdrop-blur-xl shadow-sm border-b border-border/50 py-3"
+          ? "bg-background shadow-sm border-b border-border py-3"
           : "bg-transparent border-transparent py-4"
       )}
     >
       <Container>
         <div className="flex items-center justify-between h-20 md:h-24">
-          {/* Logo */}
-          <Link 
-            href="/" 
-            className="flex items-center outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md transition-opacity hover:opacity-80 py-2 pl-1 mr-4"
-            aria-label="LINKO Home"
-          >
-            <Image
-              src="/logos/full-logo.svg"
-              alt="LINKO Logo"
-              width={180}
-              height={56}
-              className="h-12 md:h-14 w-auto dark:invert object-contain"
-              priority
-            />
-          </Link>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
@@ -80,9 +68,10 @@ export function Navbar() {
               const isActive = pathname === item.href || (pathname !== "/" && pathname?.startsWith(`${item.href}/`));
               
               return (
-                <Link
+                <a
                   key={item.href}
-                  href={item.href}
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
                   className={cn(
                     "text-sm font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1",
                     isActive ? "text-primary" : "text-foreground/70 hover:text-primary"
@@ -90,14 +79,27 @@ export function Navbar() {
                   aria-current={isActive ? "page" : undefined}
                 >
                   {item.title}
-                </Link>
+                </a>
               );
             })}
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center">
-            <Button variant="primary" size="sm">
+          <div className="hidden md:flex items-center gap-4">
+            <Button 
+              variant="secondary" 
+              size="sm" 
+              onClick={() => setIsAuthModalOpen(true)} 
+              className="rounded-full px-6 h-10 text-base tracking-wide border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/30 font-semibold"
+              leftIcon={<User className="w-4 h-4" />}
+            >
+              Log In
+            </Button>
+            <Button 
+              variant="primary" 
+              size="sm"
+              className="rounded-full px-6 h-10 text-base tracking-wide border-0 bg-gradient-to-r from-primary to-accent shadow-md shadow-primary/20 hover:opacity-90 font-semibold text-white"
+            >
               Get Started
             </Button>
           </div>
@@ -131,9 +133,10 @@ export function Navbar() {
                 const isActive = pathname === item.href || (pathname !== "/" && pathname?.startsWith(`${item.href}/`));
                 
                 return (
-                  <Link
+                  <a
                     key={item.href}
-                    href={item.href}
+                    href="#"
+                    onClick={(e) => e.preventDefault()}
                     className={cn(
                       "flex items-center w-full px-4 py-3 text-base font-semibold rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       isActive
@@ -143,11 +146,24 @@ export function Navbar() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {item.title}
-                  </Link>
+                  </a>
                 );
               })}
               <div className="pt-4 pb-2 px-2 flex flex-col gap-3 border-t border-border mt-2">
-                <Button variant="primary" size="md" className="w-full">
+                <Button 
+                  variant="secondary" 
+                  size="md" 
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="w-full rounded-full text-base tracking-wide border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/30 font-semibold"
+                  leftIcon={<User className="w-5 h-5" />}
+                >
+                  Log In
+                </Button>
+                <Button 
+                  variant="primary" 
+                  size="md" 
+                  className="w-full rounded-full text-base tracking-wide border-0 bg-gradient-to-r from-primary to-accent shadow-md shadow-primary/20 hover:opacity-90 font-semibold text-white"
+                >
                   Get Started
                 </Button>
               </div>
@@ -155,6 +171,8 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </header>
   );
 }
