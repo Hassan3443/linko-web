@@ -2,6 +2,8 @@
 
 Landing page for **LINKO**, a project-based technology education brand. Tagline: "Code. Create. Innovate." The site presents the program to parents of children who want to learn to build with code.
 
+Live site: https://linko-web-fawn.vercel.app
+
 ## What is on the page
 - Hero, features, "Why LINKO" impact stats, curriculum roadmap, how it works, testimonials, FAQ, final call to action and footer.
 - The curriculum section shows four stages: Python Fundamentals, Web Development, React & Modern Frontend, and Capstone Projects.
